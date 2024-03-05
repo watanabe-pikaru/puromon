@@ -1,0 +1,735 @@
+@charset "utf-8";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* 要素に間隔含む */
+}
+
+:root {
+    scroll-padding: 25vh;
+    /* スクロールの際の上限位置を設定 */
+    /* ヘッダーにリンク先が隠れないようにする */
+}
+@media screen and (max-width: 400px) {
+    :root {
+        scroll-padding: 15vh;
+        /* スクロールの際の上限位置を設定 */
+        /* ヘッダーにリンク先が隠れないようにする */
+    }
+}
+
+html {
+    font-size: 100%;
+    /* 16px */
+        font-family: "DotGothic16", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    overflow-y: scroll;
+    /* スクロールバー常に表示 */
+
+}
+
+body {
+    background: #F5F5DC;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+
+a {
+    color: #000;
+    text-decoration: none;
+    /* 下線を消す */
+}
+
+
+a:hover {
+    opacity: 0.5;
+    /* 透明度下げる  */
+}
+
+ul {
+    list-style: none;
+    /* 点を消す */
+}
+
+/*----- ヘッダー ------------------------------------*/
+
+header {
+    background: #F5F5DC;
+    background-color: rgba(245, 245, 220, 0.8);
+    /*-- 色は白、透明度は0.8の場合 --*/
+    width: 100vw;
+    height: 25vh;
+    position: fixed;
+    /* 固定  */
+    display: flex;
+    /* 横並び */
+    justify-content: space-around;
+    /* 水平方向に均等配置 */
+    align-items: center;
+    z-index: 99;
+    /* 表示を先頭に */
+}
+
+@media screen and (max-width: 400px) {
+    header {
+        height: 15vh;
+    }
+}
+
+
+/* ヘッダータイトル */
+.header_title {
+    margin: 10px;
+    text-align: center;
+    /* 中央寄せ */
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 400px) {
+    .header_title {
+        font-size: 1.5rem;
+    }
+}
+
+/* ヘッダーナビ */
+.header_nav {
+    display: flex;
+    margin: 10px;
+    padding: 1rem 1rem;
+    gap: 20px;
+    font-weight: bold;
+    border: 6px double #000;
+    /* 二重枠線  */
+    border-radius: 5px;
+    /* 角丸 */
+}
+
+/* ヘッダーハンバーガーメニュー */
+.header_hamburger {
+    margin: 10px;
+    border: none;
+    /* 枠線なし */
+    background: transparent;
+    /* 透明色 */
+    cursor: pointer;
+    /* 指差しマーク */
+    display: none;
+}
+
+.header_hamburger:hover {
+    opacity: 0.5;
+    /* 透明度下げる  */
+}
+
+/* ハンバーガーの３本線 */
+.header_hamburger span {
+    display: block;
+    background-color: #000;
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    position: relative;
+    /* 表示位置を基準にする */
+}
+
+/* レスポンシブ　ブレイクポイント */
+@media screen and (max-width: 768px) {
+
+    body {
+        overflow: hidden;
+        /* はみ出た部分を隠す */
+    }
+
+    .header_nav {
+        position: absolute;
+        /* 親要素を基準 */
+        right: 0;
+        top: 25vh;
+        height: 50vh;
+        width: 40vw;
+        margin: 0;
+        background: #F5F5DC;
+        flex-direction: column;
+        /* 縦並び */
+        align-items: center;
+        transform: translatex(100%);
+        /* */
+    }
+
+    .header_nav li {
+        margin: auto;
+    }
+
+    .header_hamburger {
+        display: block;
+        /* ハンバーガーメニュー出現 */
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    .header_nav {
+        position: absolute;
+        /* 親要素を基準 */
+        right: 0;
+        top: 15vh;
+    }
+}
+
+
+/* ハンバーガークリック時の動き */
+.header_nav.active {
+    transform: translatex(0%);
+    /*  ナビメニュー出現 */
+}
+
+.sp1.active {
+    top: 5px;
+    transform: rotate(45deg);
+}
+
+.sp2.active {
+    opacity: 0;
+    /* 真ん中は見えなくする */
+}
+
+.sp3.active {
+    top: -11px;
+    transform: rotate(-45deg);
+}
+
+/*----- メイン ------------------------------------------*/
+
+main {
+    padding-top: 25vh;
+    /* ヘッダー固定の分下にずらす */
+}
+@media screen and (max-width: 400px) {
+    main {
+        padding-top: 15vh;
+        /* ヘッダー固定の分下にずらす */
+    }
+}
+
+
+/* セクションの統一 */
+.wrapper {
+    margin: 0vh 1vw 5vh 1vw;
+    text-align: center;
+    display: block;
+}
+@media screen and (max-width: 400px) {
+    .wrapper {
+        margin: 0vh 1vw 5vh 1vw;
+    }
+}
+
+
+/* セクションタイトル */
+h2 {
+    margin-bottom: 5vh;
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    /* 縦位置の調整 */
+}
+
+/* セクション枠線 */
+h2::before,
+h2::after {
+    content: '';
+    /* 要素の前後に要素もどきが入る。 */
+    flex-grow: 1;
+    /* 見出し以外の余白部分を1:1の割合で分け与える */
+    height: 3px;
+    background: #000;
+}
+
+
+
+/*----- トップ画像 ---------------------------------------*/
+
+/* トップ画像スライダー表示 */
+.top-image-slider {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.css-slider {
+    width: 90vw;
+    height: auto;
+    display: flex;
+    /* 子要素を横に並べる */
+    gap: 5vw;
+    /*アニメーション設定*/
+    animation-name: slide;
+    /* アニメーションと要素を名前で結びつける */
+    animation-timing-function: linear;
+    /* アニメーション途中の加速度を一定に指定 */
+    animation-duration: 50s;
+    /* アニメーションが開始してから終了するまでの時間を指定 */
+    animation-iteration-count: infinite;
+    /* アニメーションを繰り返す回数を無限に指定 */
+}
+
+.css-slider img {
+    width: 90vw;
+    height: 70vh;
+    border-radius: 10px;
+}
+
+/*TOP画像すらいだーアニメーション*/
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-400%);
+        /* スライド画像と画像間の余白を含めた長さに合わせて調整 */
+    }
+}
+
+
+
+/*----- ものがたり ---------------------------------------*/
+
+.sec-story-main {
+    display: flex;
+    /* 横並び */
+    justify-content: space-around;
+    /* 水平方向に均等配置 */
+    align-items: center;
+}
+
+/* ものがたり画像 */
+.sec-story-main img {
+    width: 30vw;
+    height: 30vh;
+    border-radius: 10px;
+    margin-right: 5vw;
+}
+
+.sec-story-p {
+    border: 6px double #000;
+    /* 二重枠線  */
+    border-radius: 5px;
+    /* 角丸 */
+}
+
+.sec-story-p p {
+    margin: 1vh 1vw 2vh 1vw;
+}
+
+/*----- プロモン -----------------------------------------*/
+
+.sec-promon-top {
+    display: flex;
+    /* 横並び */
+    justify-content: space-around;
+    /* 水平方向に均等配置 */
+    align-items: center;
+}
+
+/* プロモン画像 */
+.sec-promon-top img {
+    width: 30vw;
+    height: 30vh;
+    border-radius: 10px;
+    margin-left: 5vw;
+}
+
+.sec-promon-content {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5vh;
+}
+
+/* 枠線の設定 */
+.sec-promon-p {
+    border: 6px double #000;
+    /* 二重枠線  */
+    border-radius: 5px;
+    /* 角丸 */
+}
+
+.sec-promon-p p {
+    margin: 1vh 1vw 2vh 1vw;
+}
+
+/* モーダルボタン */
+.js-modal-button {
+    display: block;
+    width: 30vw;
+    margin: auto;
+    padding: 1rem;
+    background: #BBBBBB;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+    /* ホバー時の変化をゆるやかにしている */
+    animation: move_button 2s infinite;
+    /* アニメーション設定 */
+}
+
+/* ボタンじぐざぐアニメーション */
+@keyframes move_button {
+    0% {
+        transform: translate(4px, 0px);
+    }
+
+    5% {
+        transform: translate(-4px, 0px);
+    }
+
+    10% {
+        transform: translate(4px, 0px);
+    }
+
+    15% {
+        transform: translate(-4px, 0px);
+    }
+
+    20% {
+        transform: translate(4px, 0px);
+    }
+
+    25% {
+        transform: translate(-4px, 0px);
+    }
+
+    30% {
+        transform: translate(4px, 0px);
+    }
+
+    35% {
+        transform: translate(-4px, 0px);
+    }
+
+    40% {
+        transform: translate(0px, 0px);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .js-modal-button {
+        font-size: 1rem;
+    }
+}
+
+.js-modal-button:hover {
+    background: #DDDDDD;
+}
+
+
+
+/* モーダルウィンドウ背景 */
+#js-promon-modal1 {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /* background-color: gray; */
+    z-index: 999;
+}
+
+#js-promon-modal2 {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /* background-color: gray; */
+    z-index: 999;
+}
+
+#js-promon-modal3 {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /* background-color: gray; */
+    z-index: 999;
+}
+
+
+/* モーダルウィンドウこんてんつ */
+.modal-content {
+    background-color: #EEEEEE;
+    margin: 30vh auto;
+    width: 75vw;
+    height: auto;
+    box-shadow: 0 2px 7px;
+    /* 影。x軸、y軸、拡散性、色 */
+    animation-name: popup;
+    animation-duration: 2s;
+}
+
+/* モーダル出現アニメーション */
+@keyframes popup {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+/* モーダルの上部分 */
+.modal-header1 {
+    background-color: #FFB6C1;
+    padding: 2vh 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header2 {
+    background-color: #87CEEB;
+    padding: 2vh 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header3 {
+    background-color: #C299FF;
+    padding: 2vh 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header p {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.5rem;
+    /* 文字間サイズ */
+}
+
+/* ×ボタン */
+.modalClose {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* モーダル下部分 */
+.modal-body {
+    background-color: #EEEEEE;
+    padding: 2vh 10vw;
+}
+
+.modal-body p {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* モーダル　ブレイクポイント */
+@media screen and (max-width: 400px) {
+
+    .modal-header p {
+        font-size: 1rem;
+    }
+
+    .modal-body p {
+        font-size: 1rem;
+    }
+}
+
+/*----- どうぐ --------------------------------------------*/
+
+.sec-tool-main {
+    display: flex;
+    /* 横並び */
+    justify-content: space-around;
+    /* 水平方向に均等配置 */
+    align-items: center;
+}
+
+/* どうぐ画像 */
+.sec-tool-main img {
+    width: 30vw;
+    height: 30vh;
+    border-radius: 10px;
+    margin-right: 5vw;
+}
+
+/* 枠線の設定 */
+.sec-tool-p {
+    border: 6px double #000;
+    /* 二重枠線  */
+    border-radius: 5px;
+    /* 角丸 */
+    padding: 5vh 5vw;
+}
+
+.sec-tool-p p {
+    margin: 1vh 1vw 2vh 1vw;
+}
+
+/* 進化 */
+.sec-tool-stone {
+    margin: 5vh auto;
+    padding: 1rem;
+    width: 70vw;
+    border: 2px solid #000;
+    border-radius: 10px;
+}
+
+.stone-button {
+    margin: 1vh 2vw;
+    padding: 0.5rem;
+    background: #EEEEEE;
+    border: 2px dotted #000;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+    /* ホバー時の変化をゆるやかにしている */
+}
+
+
+/*----- ちず ---------------------------------------------*/
+
+.sec-map-main {
+    display: flex;
+    /* 横並び */
+    justify-content: space-around;
+    /* 水平方向に均等配置 */
+    align-items: center;
+}
+
+/* 地図画像 */
+.sec-map-main img {
+    width: 30vw;
+    height: 30vh;
+    border-radius: 10px;
+    margin-left: 5vw;
+}
+
+/* 枠線の設定 */
+.sec-map-p {
+    border: 6px double #000;
+    /* 二重枠線  */
+    border-radius: 5px;
+    /* 角丸 */
+}
+
+.sec-map-p p {
+    margin: 1vh 1vw 2vh 1vw;
+}
+
+/* 枠線の設定 */
+.sec-map-frame {
+    margin-top: 5vh;
+}
+
+/* 地図 */
+iframe {
+    width: 70vw;
+    height: 50vh;
+    aspect-ratio: 16/9;
+    /* アスペクト比（縦横比）を指定 */
+}
+
+
+
+/* 動画枠線の設定 */
+.sec-map-video {
+    margin-top: 5vh;
+}
+
+/* 動画 */
+video {
+    width: 70vw;
+    height: auto;
+    aspect-ratio: 16/9;
+    /* アスペクト比（縦横比）を指定 */
+}
+
+/*----- レポート ---------------------------------------*/
+
+textarea {
+    width: 70vw;
+    height: 30vh;
+    border-radius: 5px;
+    padding: 1vh 1vw;
+    /* キャレット表示 */
+}
+
+.sec-map-sub button {
+    margin: 1vh 5vw;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
+    background: #EEEEEE;
+    border: 2px dotted #000;
+    cursor: pointer;
+    transition: 0.5s;
+    /* ホバー時の変化をゆるやかにしている */
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 400px) {
+    .sec-map-sub button {
+        margin: 2%;
+        padding: 1%;
+    }
+}
+
+.sec-map-sub button:hover {
+    opacity: 0.5;
+}
+
+
+/*----- トップへ戻る ---------------------------------------*/
+.pagetop {
+    position: fixed;
+    /* 右下に固定 */
+    bottom: 2vh;
+    right: 2vw;
+    background: #FFDDFF;
+    border-radius: 5px;
+}
+
+.pagetop a {
+    display: block;
+    text-decoration: none;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.pagetop:hover {
+    opacity: 0.85;
+}
+
+
+/*----- フッター --------------------------------------------*/
+.footer {
+    height: 5vh;
+}
+
+
